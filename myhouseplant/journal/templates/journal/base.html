@@ -101,129 +101,122 @@
         {% endfor %}
       {% endif %}
     </div>
-
+    
     <div class="greencontainer">
-    <div class="greenbandcolor greenband">
-    <div class="greencontent">
-    <div class="greenpage">
-    <div style="margin: 0 auto; text-align: center">
-     
-      <div>
-        <span class="brd-box">
-        <h3 style="color:rgb(253, 253, 253)";> Quick Links</h3>
-        </span>
-      </div>
-
-      <br> 
-      <span class="Plants">
-        <span class="leafy">
-          <img class="mx-auto" src="{% static 'journal/seedling_smaller.png' %}">
-        </span>
-        {% if user.is_authenticated %}
-          <a class="btn" href="{% url 'plant-create' %}">Add New Plant</a>
-        {% else %}
-          <a class="btn" href="#" role="button" data-toggle="modal" data-target="#addPlantModal">Add a Plant</a>
-        {% endif %}
-      </span>
-      
-
-    <span class="Plants">
-      <span class="leafy">
-        <img class="mx-auto" src="{% static 'journal/edit_5.png' %}">
-      </span>
-      {% if user.is_authenticated %}
-        <a class="btn" href="{% url 'choose-plant' %}">Add Journal Entry</a> <!-- New button for choosing plant -->
-      {% else %}
-        <a class="btn" href="#" role="button" data-toggle="modal" data-target="#modifyPlantModal">Add Journal Entry</a>
-      {% endif %}
-    </span>
-
-    <span class="Plants">
-      <span class="leafy">
-        <img class="mx-auto" src="{% static 'journal/catalog2.png' %}">
-      </span>
-        <a class="btn" href="{% url 'journal-home' %}">Plant Catalog</a> <!-- New button for choosing plant -->
-    </span>
-
-   <span>
-      <span class="Plants">
-        <span class="leafy">
-          <img class="mx-auto" src="{% static 'journal/wateringcan-4.png' %}">
-        </span>
-        {% if user.is_authenticated %}
-            <form action="{% url 'water-all-plants' %}" class="d-inline" method="post">
-              {% csrf_token %}
-              <button type="submit" class="btn" name="water_all-plants">Water All Plants</button>
-          </form>
-
-        {% else %}
-          <a href="#" class="btn" role="button" data-toggle="modal" data-target="#modifyPlantModal">
-            Water All Plants
-          </a>
-        {% endif %}
-      </span>
-
-
-        
-            <div>
+      <div class="greenbandcolor greenband">
+        <div class="greencontent">
+          <div class="greenpage">
+            <div style="margin: 0 auto; text-align: center">
+              <div>
+                <span class="brd-box">
+                  <h3 style="color:rgb(253, 253, 253)">Quick Links</h3>
+                </span>
+              </div>
+    
               <br>
-              <span class="brd-box">
-             
-              <h3> <br> </h3>
+    
+              <span class="Plants">
+                <span class="leafy">
+                  <img class="mx-auto" src="{% static 'journal/seedling_smaller.png' %}">
+                </span>
+                {% if user.is_authenticated %}
+                  <a class="btn" href="{% url 'plant-create' %}">Add New Plant</a>
+                {% else %}
+                  <a class="btn" href="#" role="button" data-toggle="modal" data-target="#addPlantModal">Add a Plant</a>
+                {% endif %}
               </span>
+    
+              <span class="Plants">
+                <span class="leafy">
+                  <img class="mx-auto" src="{% static 'journal/edit_5.png' %}">
+                </span>
+                {% if user.is_authenticated %}
+                  <a class="btn" href="{% url 'choose-plant' %}">Add Journal Entry</a>
+                {% else %}
+                  <a class="btn" href="#" role="button" data-toggle="modal" data-target="#modifyPlantModal">Add Journal Entry</a>
+                {% endif %}
+              </span>
+    
+              <span class="Plants">
+                <span class="leafy">
+                  <img class="mx-auto" src="{% static 'journal/catalog2.png' %}">
+                </span>
+                <a class="btn" href="{% url 'journal-home' %}">Plant Catalog</a>
+              </span>
+    
+              <span>
+                <span class="Plants">
+                  <span class="leafy">
+                    <img class="mx-auto" src="{% static 'journal/wateringcan-4.png' %}">
+                  </span>
+                  {% if user.is_authenticated %}
+                    <form action="{% url 'water-all-plants' %}" class="d-inline" method="post">
+                      {% csrf_token %}
+                      <button type="submit" class="btn" name="water_all-plants">Water All Plants</button>
+                    </form>
+                  {% else %}
+                    <a href="#" class="btn" role="button" data-toggle="modal" data-target="#modifyPlantModal">
+                      Water All Plants
+                    </a>
+                  {% endif %}
+                </span>
+              </span>
+    
+              <div>
+                <br>
+                <span class="brd-box">
+                  <h3><br></h3>
+                </span>
+              </div>
             </div>
-        </div>
-      </div>
-    </div>
-    </div>
-  </div>
-
-</div>
-</div>
-
-
-
-      <!-- Modal Warning for Add Plant button-->
-      <div class="modal fade bd-example-modal-sm" id="addPlantModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title text-danger" id="exampleModalLabel">Add a Plant</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              You must create an account or login to create a plant.
           </div>
         </div>
       </div>
-      <!-- End Modal for Add Plant button-->
-
-    <!-- Modal Warning if user is not owner of plant-->
-      <div class="modal fade bd-example-modal-sm" id="modifyPlantModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title text-danger" id="modifyPlantModalLabel">You Do Not Own This Plant</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              Since you are not the owner of this plant, you may not modify it.
-            </div>
+    </div>
+    
+    <!-- Add Plant Modal -->
+    <div class="modal fade" id="addPlantModal" tabindex="-1" role="dialog" aria-labelledby="addPlantModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-danger" id="addPlantModalLabel">Add a Plant</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            You must create an account or login to create a plant.
           </div>
         </div>
+      </div>
     </div>
-  <!-- End Modal if user is not owner of plant-->
+    
+    <!-- Modify Plant Modal -->
+    <div class="modal fade" id="modifyPlantModal" tabindex="-1" role="dialog" aria-labelledby="modifyPlantModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-danger" id="modifyPlantModalLabel">You Do Not Own This Plant</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Since you are not the owner of this plant, you may not modify it.
+          </div>
+        </div>
+      </div>
+    </div>
+    
 
 </section>
 
   <footer class="dark-footer">
     <div class="footer-icons">
-        <a href="https://github.com"><img src="/static/journal/github_white.png" alt="GitHub"></a>
-        <a href="https://linkedin.com"><img src="/static/journal/linkedin.png" alt="LinkedIn"></a>
+        <a href="https://github.com/jtc21am"><img src="/static/journal/github_white.png" alt="GitHub"></a>
+        <a href="https://www.linkedin.com/in/asha-m-271829273/"><img src="/static/journal/linkedin.png" alt="LinkedIn"></a>
     </div>
   </footer>
 
