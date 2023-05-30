@@ -1,0 +1,143 @@
+{% extends "journal/base.html" %}
+{% load my_tags %}
+{% load cropping %}
+{% block content %}
+
+<div class="container">
+    <div class="row mb-2">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="media mt-2">
+                <img class="rounded mr-3" src="{% cropped_thumbnail plant 'cropping' scale=1.0 %}" alt="{{ object.name }}" style="width:30%">
+                <div class="media-body">
+                    <h2 class="mt-0">{{ object.name }}</h2>
+                    <p class="card-text"><b>Last Watered:</b> {{ object.last_watered|days_since }}
+                        <br><a class="btn btn-dark btn-sm" id="content-mobile" href="#" role="button" data-toggle="modal" data-target="#moreInfoModal">More Info</a>
+                        <span id="content-desktop">
+                            <b>Location:</b> {{ object.location }}
+                            <br><b>Schedule:</b> Water every {{ object.schedule }} days
+                            <br><b>Germination:</b> {{ object.bought|date:"n/j/y" }}
+                            <br><b>Grown From:</b> {{ object.grown_from }}
+                            <br><b>Scientific Name:</b> {{ object.scientific }}
+                            <br>
+                            {% if object.last_fertilized %}
+                                <b>Fertilized:</b> {{ object.last_fertilized|date:"n/j/y" }}
+                            {% endif %}
+                            <br>
+                            {% if object.last_repotted %}
+                                <b>Repotted:</b> {{ object.last_repotted|date:"n/j/y" }}
+                            {% endif %}
+                            <br>
+                            {% if object.last_treated %}
+                                <b>Treated:</b> {{ object.last_treated|date:"n/j/y" }}
+                            {% endif %}
+                            <br>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            {% if object.owner == user %}
+                <form method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary" name="water_single" style="width:100%">Water Me</button>
+                    <br>
+                </form>
+            {% else %}
+                <a href="#" class="btn btn-primary" style="width:100%" role="button" data-toggle="modal" data-target="#modifyPlantModal">Water Me!</a>
+            {% endif %}
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="card">
+                <h5 class="card-header">Journal</h5>
+                <div class="card-body">
+                    {% for entry in object.entry_set.all reversed %}
+                        <p class="card-text"><b>{{ entry.date_created|date:"n/j/y" }}:</b> {{ entry.note }}</p>
+                    {% empty %}
+                        <p><i>No journal entries yet.</i></p>
+                    {% endfor %}
+                    {% if object.owner == user %}
+                        <a href="{% url 'entry-create' object.id %}" class="btn btn-outline-primary float-right" role="button">Add Entry</a>
+                    {% else %}
+                        <a href="#" class="btn btn-primary" style="width:100%" role="button" data-toggle="modal" data-target="#modifyPlantModal">Add Entry</a>
+                        <!-- <button class="btn btn-outline-primary float-right" data-toggle="modal" data-target="#choosePlantModal">Add Entry</button> -->
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    
+
+    <div class="row mb-2">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="btn-group" role="group" style="width:100%" aria-label="Basic example">
+                {% if object.owner == user %}
+                    <a href="{% url 'plant-update' object.id %}" role="button" class="btn btn-outline-secondary btn-sm">Update</a>
+                    <a href="{% url 'plant-delete' object.id %}" class="btn btn-outline-danger btn-sm">Delete</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    <!-- Model for more plant info-->
+    <div class="modal fade bd-example-modal-sm" id="moreInfoModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModal" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="moreInfoModalLabel">{{ object.name }} Info</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <b>Location:</b> {{ object.location }}
+                <br><b>Schedule:</b> Water every {{ object.schedule }} days
+                <br><b>Bought:</b> {{ object.bought|date:"N j, Y" }}
+                {% if object.last_fertilized %}
+                    <br><b>Last Fertilized:</b> {{ object.last_fertilized|date:"n/j/y" }}
+                {% endif %}
+                {% if object.last_repotted %}
+                    <br><b>Last Repotted:</b> {{ object.last_repotted|date:"n/j/y" }}
+                {% endif %}
+                {% if object.last_treated %}
+                    <br><b>Last Treated:</b> {{ object.last_treated|date:"n/j/y" }}
+                {% endif %}
+            </div>
+          </div>
+        </div>
+    </div>
+    <!-- End Modal for more plant info-->
+
+    <!-- Modal Warning if user is not owner of plant-->
+    <div class="modal fade bd-example-modal-sm" id="modifyPlantModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-danger" id="modifyPlantModalLabel">You Do Not Own This Plant</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Since you are not the owner of this plant, you may not modify it.
+            </div>
+          </div>
+        </div>
+    </div>
+    <!-- End Modal if user is not owner of plant-->
+
+</div>
+{% endblock content %}

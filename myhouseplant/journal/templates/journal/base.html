@@ -1,0 +1,241 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- End Bootstrap CSS -->
+
+    <!-- My CSS -->
+    <link rel="stylesheet" href="{% static 'journal/main.css' %}">
+    <!-- End My CSS -->
+    <link rel="shortcut icon" href="{% static 'journal/favicon.ico' type='image/x-icon' %}">
+
+    {% if title %}
+    <title> House Plant - {{ title }}</title>
+    {% else %}
+    <title>House Plant</title>
+    {% endif %}
+
+    {% block head %}
+    {% endblock %}
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <span class="navbar-text pb-0 pt-0">
+        <a href="{% url 'journal-home' %}"><img class="float-left" src="{% static 'journal/thehouseplant-1.png' %}" style="width:35%"></a>
+      </span>
+      <ul class="navbar-nav mr-auto">
+      </ul>
+
+      <span class="navbar-text mr-2">
+        <a href="{% url 'plant_week' %}">Home</a>
+      </span>
+      <span class="navbar-text mr-2">
+        |
+      </span>
+      <span class="navbar-text mr-2">
+        <a href="{% url 'journal-home' %}">Plant Catalog</a>
+      </span>
+      <span class="navbar-text mr-2">
+        |
+      </span>
+      <span class="navbar-text mr-2">
+        <a href="{% url 'journal-about' %}">About</a>
+      </span>
+      <span class="navbar-text mr-2">
+        |
+      </span>
+      {% if user.is_authenticated %}
+        <span class="navbar-text mr-2">
+          <a href="{% url 'profile' %}">Profile</a>
+        </span>
+        <span class="navbar-text mr-2">
+          |
+        </span>
+        <span class="navbar-text mr-2">
+          <a href="{% url 'logout' %}">Logout</a>
+        </span>
+
+      {% else %}
+        <span class="navbar-text mr-2">
+          <a href="{% url 'login' %}">Login</a>
+        </span>
+        <span class="navbar-text mr-2">
+          |
+        </span>
+        <span class="navbar-text">
+          <a href="{% url 'register' %}">Register</a>
+        </span>
+      {% endif %}
+
+  </nav>
+
+  
+  <main>
+
+    <div class="myjumbotron">
+      <img src="{% static 'journal/leaf_code-6.png' %}" alt="Your Image" class="image">
+    </div>
+
+  </main>
+
+  {% block content %}
+  {% endblock %}
+  <section>
+
+    <div class="container">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    <div class="greencontainer">
+    <div class="greenbandcolor greenband">
+    <div class="greencontent">
+    <div class="greenpage">
+    <div style="margin: 0 auto; text-align: center">
+     
+      <div>
+        <span class="brd-box">
+        <h3 style="color:rgb(253, 253, 253)";> Quick Links</h3>
+        </span>
+      </div>
+
+      <br> 
+      <span class="Plants">
+        <span class="leafy">
+          <img class="mx-auto" src="{% static 'journal/seedling_smaller.png' %}">
+        </span>
+        {% if user.is_authenticated %}
+          <a class="btn" href="{% url 'plant-create' %}">Add New Plant</a>
+        {% else %}
+          <a class="btn" href="#" role="button" data-toggle="modal" data-target="#addPlantModal">Add a Plant</a>
+        {% endif %}
+      </span>
+      
+
+    <span class="Plants">
+      <span class="leafy">
+        <img class="mx-auto" src="{% static 'journal/edit_5.png' %}">
+      </span>
+      {% if user.is_authenticated %}
+        <a class="btn" href="{% url 'choose-plant' %}">Add Journal Entry</a> <!-- New button for choosing plant -->
+      {% else %}
+        <a class="btn" href="#" role="button" data-toggle="modal" data-target="#modifyPlantModal">Add Journal Entry</a>
+      {% endif %}
+    </span>
+
+    <span class="Plants">
+      <span class="leafy">
+        <img class="mx-auto" src="{% static 'journal/catalog2.png' %}">
+      </span>
+        <a class="btn" href="{% url 'journal-home' %}">Plant Catalog</a> <!-- New button for choosing plant -->
+    </span>
+
+   <span>
+      <span class="Plants">
+        <span class="leafy">
+          <img class="mx-auto" src="{% static 'journal/wateringcan-4.png' %}">
+        </span>
+        {% if user.is_authenticated %}
+            <form action="{% url 'water-all-plants' %}" class="d-inline" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn" name="water_all-plants">Water All Plants</button>
+          </form>
+
+        {% else %}
+          <a href="#" class="btn" role="button" data-toggle="modal" data-target="#modifyPlantModal">
+            Water All Plants
+          </a>
+        {% endif %}
+      </span>
+
+
+        
+            <div>
+              <br>
+              <span class="brd-box">
+             
+              <h3> <br> </h3>
+              </span>
+            </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+
+      <!-- Modal Warning for Add Plant button-->
+      <div class="modal fade bd-example-modal-sm" id="addPlantModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-danger" id="exampleModalLabel">Add a Plant</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              You must create an account or login to create a plant.
+          </div>
+        </div>
+      </div>
+      <!-- End Modal for Add Plant button-->
+
+    <!-- Modal Warning if user is not owner of plant-->
+      <div class="modal fade bd-example-modal-sm" id="modifyPlantModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-danger" id="modifyPlantModalLabel">You Do Not Own This Plant</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Since you are not the owner of this plant, you may not modify it.
+            </div>
+          </div>
+        </div>
+    </div>
+  <!-- End Modal if user is not owner of plant-->
+
+</section>
+
+  <footer class="dark-footer">
+    <div class="footer-icons">
+        <a href="https://github.com"><img src="/static/journal/github_white.png" alt="GitHub"></a>
+        <a href="https://linkedin.com"><img src="/static/journal/linkedin.png" alt="LinkedIn"></a>
+    </div>
+  </footer>
+
+  <a href="#" id="toTop" style="display: inline;">To Top</a>
+  
+    <!-- Optional Bootstrap JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- End Optional Bootstrap JavaScript -->
+    
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+{% extends "journal/base.html" %}
+
+{% block content %}
+
+<div class="greencontainer">
+  <div class="greenbandcolor greenband">
+  <div class="greencontent">
+  <div class="greenpage">
+  <div style="margin: 0 auto; text-align: center">
+
+    <div>
+      <span class="brd-box">
+      <h3 style="color:rgb(253, 253, 253)";> Select a Plant to add a Journal Entry </h3>
+      </span>
+    </div>
+  </div>
+  <ul>
+    {% for plant in plants %}
+      <li>
+        <a href="{% url 'entry-create' plant.id %}">{{ plant.name }}</a>
+      </li>
+    {% empty %}
+      <li>No plants available</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

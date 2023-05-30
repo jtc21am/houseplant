@@ -1,0 +1,51 @@
+{% extends "journal/base.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+    body {
+      background-color:#f6f3ec; /* Replace with your desired background color */
+      }
+</style>
+
+<div class="greencontainer">
+    <div class="greenbandcolor greenband">
+    <div class="greencontent">
+    <div class="greenpage">
+    <div style="margin: 0 auto; text-align: center">
+  
+      <div>
+        <span class="brd-box">
+        <h3 style="color:rgb(253, 253, 253)";> About </h3>
+        </span>
+      </div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <hr>
+                <img class="rounded float-left mr-4" src="{% static 'journal/outsidegarden.jpeg' %}" style="width:40%">
+                <p>Hello! I created this app for two reasons:</p>
+                <div class="container pl-2">
+                <ol class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>1.</strong> Create an app which is useful</li>
+                    <li class="list-group-item"><strong>2.</strong> Learn more about Django and Raspberry Pi</li>
+                </ol>
+                
+                </div>
+                <p class="mt-2">I love plants and gardening.
+                    I use this app every day to keep plants healthy and thriving.
+                    Feel free to check out my plants on the <a href="{% url 'journal-home' %}">Catalog page</a>,
+                    or make your own account to keep track of yours!
+                </p>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+{% endblock content %}

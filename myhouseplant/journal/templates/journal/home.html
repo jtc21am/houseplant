@@ -1,0 +1,119 @@
+{% extends "journal/base.html" %}
+{% load cropping %}
+{% load my_tags %}
+{% block content %}
+
+<style>
+body {
+  background-color:#f6f3ec; /* Replace with your desired background color */
+  }
+</style>
+
+<div class="greencontainer">
+  <div class="greenbandcolor greenband">
+  <div class="greencontent">
+  <div class="greenpage">
+  <div style="margin: 0 auto; text-align: center">
+
+    <div>
+      <span class="brd-box">
+      <h3 style="color:rgb(253, 253, 253)";> Plant Catalog</h3>
+      </span>
+    </div>
+
+  </div>   
+  </div>
+  </div>
+  </div>
+</div>
+
+
+  {% if user.is_authenticated %}
+  {% else %}
+    <div class="container">
+      <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        <strong>Welcome!</strong> You may <a href="{% url 'login' %}" class="alert-link">login</a> or <a href="{% url 'register' %}" class="alert-link">register</a> to view your own collection or simply view my <a href="{% url 'journal-home' %}" class="alert-link">catalog</a>!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+  {% endif %}
+  
+  <div class="container" id="content-desktop">
+    <div class="row">
+      {% for plant in plants %}
+        <div class="col-md-3">
+          <a class="no-style" href="{% url 'plant-detail' plant.id %}">
+            <div class="card plant-card mb-5 {% if plant.is_due %}red-card{% endif %}" style="height:90%">
+              <img class="card-img-top" src="{% cropped_thumbnail plant 'cropping' scale=1.0 %}"  alt="{{ plant.name }}">
+              <div class="card-body">
+                <h5 class="card-title text-center">{{ plant.name }}</h5>
+                <p class="card-text">Location: {{ plant.location }}
+                  {% if plant.is_past_due %}
+                    <br>Last Watered: <span class="text-danger">{{ plant.last_watered|days_since }}</span>
+                  {% elif plant.is_due %}
+                    <br>Last Watered: <span class="text-warning">{{ plant.last_watered|days_since }}</span>
+                  {% elif plant.watered_today %}
+                    <br>Last Watered: <span class="text-success">Today</span>
+                  {% else %}
+                    <br>Last Watered: {{ plant.last_watered|days_since }}
+                  {% endif %}
+                  <br>Germination: {{ plant.bought|date:"n/j/y" }}
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% if plants %}
+  <div class="container" id="content-mobile">
+    <div class="row" id="content-mobile">
+      <div class="col-12">
+        <table class="table table-image table-hover">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Plant</th>
+              <th scope="col">Watered</th>
+              <th scope="col">Location</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for plant in plants %}
+              <tr class="clickable" onclick="window.location='{% url 'plant-detail' plant.id %}'">
+                <td class="w-25">
+                  <img src="{% cropped_thumbnail plant 'cropping' scale=1.0 %}" class="img-fluid rounded" alt="{{ plant.name }}">
+                </td>
+                <td>{{ plant.name }}</td>
+                {% if plant.is_past_due %}
+                  <td class="text-danger">{{ plant.last_watered|days_since }}</td>
+                {% elif plant.is_due %}
+                  <td class="text-warning">{{ plant.last_watered|days_since }}</td>
+                {% elif plant.watered_today %}
+                  <td class="text-success">Today</td>
+                {% else %}
+                  <td class="text">{{ plant.last_watered|days_since }}</td>
+                {% endif %}
+                <td>{{ plant.location }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="container">
+    <div class="alert alert-success mb-5" role="alert">
+      <h4 class="alert-heading">Welcome! &#127799;</h4>
+      <p> You will be able to see all of your plants. You will be able to click on each plant to view its journal and details.</p>
+      <hr>
+      <p class="mb-0">You can <strong><a href="{% url 'plant-create' %}">click here</a></strong> to create a plant. Or you can log out and view Dana's plants for inspiration!</p>
+    </div>
+  </div>
+  {% endif %}
+{% endblock content %}
