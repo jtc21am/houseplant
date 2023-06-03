@@ -1,22 +1,20 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.contrib.auth.models import User
-from django.contrib import messages
 from django.views.generic.edit import FormMixin, FormView
 from django.views.generic.detail import SingleObjectMixin
 from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.models import User
+from django.contrib import messages
 from django.urls import reverse
 from django.utils import timezone
 from django.http import HttpResponseRedirect
 from django.db import transaction
-from django.contrib import messages
 from .forms import EntryCreateForm, EntryWaterForm, PlantCreateForm
 from .models import Plant, Entry
 import random
 
-import random
 
 def plant_of_the_week(request):
     # Retrieve all plants from the database
@@ -137,6 +135,7 @@ class PlantUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 class PlantDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     """ Delete a plant if user is plant owner and redirect to home page with message. """
     model = Plant
+
 
     def test_func(self):
         # Check if the current user is the owner of the plant being deleted

@@ -14,7 +14,6 @@ body {
   <div class="greencontent">
   <div class="greenpage">
   <div style="margin: 0 auto; text-align: center">
-
     <div>
       <span class="brd-box">
         <p></p>
@@ -22,7 +21,6 @@ body {
       <p style="color:rgb(253, 253, 253);">Uncovering the true joys of plants: science and realistic expectations.</p>
       </span>
     </div>
-
   </div>   
   </div>
   </div>
@@ -41,31 +39,19 @@ body {
       </div>
     </div>
   {% endif %}
-
-
-
 <div class="col-md-6 offset-md-3 text-center">
-<h1>Plant of the Week</h1>
-
-<div class="container square-container">
-  <div class="row">
- 
-      <a href="{% url 'plant-detail' random_plant.id %}">
-        <div class="card mb-3">
-          <div class="card-img-container">
-            <img src="{{ random_plant.image.url }}" class="card-img" alt="{{ random_plant.name }}"> <!-- Add the CSS class 'card-img' -->
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">{{ random_plant.name }}</h5>
-            <p class="card-text">{{ random_plant.description }}</p>
-          </div>
+  <h2>Plant of the Week</h2>
+  <div class="thumbnail-container">
+    <a target="_blank" href="img_forest.jpg">
+      <div class="col-card mb-5">
+        <div class="card-img-container">
+          <img src="{{ random_plant.image.url }}" class="thumbnail-img" alt="{{ random_plant.name }}">
         </div>
-      </a>
-    </div>
+        <h5 class="card-title">{{ random_plant.name }}</h5>
+        <p class="card-text">{{ random_plant.description }}</p>
+      </div>
+    </a>
   </div>
 </div>
-<br>
-<br>
-<br>
-<br>
+  
 {% endblock content %}

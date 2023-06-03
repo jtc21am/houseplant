@@ -40,7 +40,7 @@ class Plant(models.Model):
     bought = models.DateTimeField(default=timezone.now)
     image = models.ImageField(default='default.jpg', blank=True, upload_to=user_directory_path)
     cropping = ImageRatioField('image', '300x300') # size is "width x height"
-    schedule = models.PositiveIntegerField()
+    schedule = models.PositiveIntegerField(default=1, blank=1)
     date_created = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     last_watered = models.DateTimeField(default=timezone.now)
