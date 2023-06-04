@@ -1,0 +1,241 @@
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+.plant-card {
+    transition: box-shadow .3s;
+}
+.plant-card:hover {
+    box-shadow: 0 0 20px rgba(38, 38, 38, 0.5);
+}
+/* You can adjust the image size by increasing/decreasing the width, height */
+.custom-circle-image {
+    width: 15vw; /* note i used vw not px for better responsive */
+    height: 15vw;
+}
+
+
+.Plants:hover > .leafy {
+    animation-name: wave;
+    animation-duration: 2.0s;
+    display: inline-block;
+}
+  
+@keyframes wave {
+    0% { transform: rotate( 0.0deg) }
+    10% { transform: rotate(14.0deg) }  /* The following five values can be played with to make the waving more or less extreme */
+    20% { transform: rotate(-8.0deg) }
+    30% { transform: rotate(14.0deg) }
+    40% { transform: rotate(-4.0deg) }
+    50% { transform: rotate(10.0deg) }
+    60% { transform: rotate( 0.0deg) }  /* Reset for the last half to pause */
+    100% { transform: rotate( 0.0deg) }
+}
+
+.custom-circle-image img {
+    object-fit: cover;
+}
+
+.no-style {
+    text-decoration: none !important;
+    color: inherit;
+}
+
+.no-style:hover {
+    color: inherit;
+}
+
+.myjumbotron {
+    padding-bottom: 10px; /* Adjust the padding-bottom value to add padding at the bottom */
+    border-radius: 0 !important;
+}
+
+.myjumbotron img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+  }
+
+#content-desktop {display: block;}
+#content-mobile {display: none;}
+
+@media screen and (max-width: 768px) {
+#content-desktop {display: none;}
+#content-mobile {display: block;}
+}
+
+.asteriskField {
+    display: none;
+}
+
+.selectdatewidget {
+    display: inline-block;
+}
+
+select[name$="_day"].selectdatewidget {
+    width: 27%;
+}
+select[name$="_month"].selectdatewidget {
+    width: 38%;
+}
+select[name$="_year"].selectdatewidget {
+    width: 35%;
+}
+
+font-face {
+    font-family: "Gill Sans", sans-serif;
+    font-weight: bold;
+  }
+
+.greencontainer {
+    overflow:hidden;
+    position:relative;
+    padding: 0rem 0rem;
+    padding-bottom: 1rem;
+}
+
+.greenpage {
+    position:relative;
+    width: 1200px;
+    margin: 0px auto;
+    padding: 5px;
+
+}
+
+.greenband {
+    width:100%;
+    padding: 1rem 0rem;
+
+}
+
+.greencontent {
+    position:relative;
+
+}
+
+.greenbandcolor  { 
+    background-color: #B9D485;
+
+}
+
+.center {
+    /* border: 5px solid; */
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    padding: 20px;
+  }
+
+
+.brd-box {
+    display:block;
+    border: 2px solid #000000;
+    background: #395c00
+  }
+
+.btn {
+color: rgb(255, 255, 255);
+background-color: rgb(42, 110, 42);
+border: solid;
+}
+
+.btn-equal-size {
+    width: 150px; /* Adjust the width value as desired */
+    height: 40px; /* Adjust the height value as desired */
+  }
+
+.dark-footer {
+    background-color: #343a40;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+}
+
+.dark-footer .footer-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dark-footer .footer-icons img {
+    width: 30px;
+    height: 30px;
+    margin: 0 10px;
+}
+
+.red-card {
+    background-color: red;
+}
+
+/** Totop **/
+
+#toTop {
+    position: fixed;
+    display: none;
+    text-decoration: none;
+    bottom: 30px;
+    right: 30px;
+    overflow: hidden;
+    border: none;
+    z-index: 999;
+    opacity: 0.9;
+    width: 45px;
+    height: 54px;
+    background: url(totop.png) no-repeat left top;
+    background-size: 45px;
+}
+  
+#toTop:hover {
+    opacity: 1;
+}
+
+#toTop::before {
+    content: "";
+    display: block;
+    width: 45px;
+    height: 54px;
+}
+
+#toTop::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background: url(totop-bottom.png) repeat;
+    width: 500px;
+    height: 7px;
+    background-size: 45px;
+    animation: moveSlideshow 17s linear infinite;
+}
+.thumbnail-container {
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto; /* Center the container horizontally on the page */
+}
+
+.thumbnail-img {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    width: 100%;
+}
+
+.thumbnail-img:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}
+
+.card-title {
+    margin-top: 10px;
+}
+
+.card-text {
+    margin-bottom: 0;
+}
