@@ -17,10 +17,17 @@ import random
 
 
 def plant_of_the_week(request):
-    # Retrieve all plants from the database
-    plants = Plant.objects.all()
-    # Choose a random plant from the list
-    random_plant = random.choice(plants)
+    try:
+        # Retrieve all plants from the database
+        plants = Plant.objects.all()
+        if plants:
+            # Choose a random plant from the list
+            random_plant = random.choice(plants)
+        else:
+            random_plant = None
+    except ObjectDoesNotExist:
+        random_plant = None
+
     # Prepare the context data to be passed to the template
     context = {
         'plants': plants,
