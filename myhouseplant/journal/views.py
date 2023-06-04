@@ -16,6 +16,9 @@ from .models import Plant, Entry
 import random
 
 
+from django.shortcuts import render
+from django.core.exceptions import ObjectDoesNotExist
+
 def plant_of_the_week(request):
     try:
         # Retrieve all plants from the database
