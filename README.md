@@ -2,6 +2,11 @@
 
 A plant watering schedule web application built using Django, hosted on Render.
 
+I love plants and gardening. 
+
+The app is a reminder of when to water my plants, as well as keep a log on each plant to record things like fertilization, repotting, pest control, etc. 
+
+
 ## About this application
 I took the opportunity to my hands dirty (all puns intended) in the world of physical electronics and micro-controllers as well as take plant nurturing to the next level. This is a topic that is entirely new to me.
 
@@ -13,14 +18,7 @@ Architecture
 
 I am seeking data - data on sun exposure, soil moisture, and eventually temperature although these metrics are hyper-localized and can be entirely different only a foot away.
 
-So we’ll be collecting metrics like soil moisture, sun exposure UV, plus metadata like device ID and timestamp, send it to a server on the network using a REST API, store it in a database, and analyze it using Grafana.
-
-
-I love plants and gardening. 
-
-The app is a reminder of when to water my plants, as well as keep a log on each plant to record things like fertilization, repotting, pest control, etc. 
-
-
+So I’ll be collecting metrics like soil moisture, sun exposure UV, plus metadata like device ID and timestamp, send it to a server on the network using a REST API, store it in a database, and analyze it using Grafana.
 
 Set up my Django project with Postgres, Nginx and Gunicorn:  I utilized Class based views, signaling, caching and built unit tests.
 
@@ -145,4 +143,6 @@ Run the following command:
 - [Django Static CSS](https://learndjango.com/tutorials/django-static-files)
 - [Django HTML](https://docs.djangoproject.com/en/4.0/topics/templates/)
 - [Python Signal](https://docs.python.org/3/library/signal.html)
+- [Gunicorn] (https://www.google.com/search?client=safari&rls=en&q=gunicorn&ie=UTF-8&oe=UTF-8)
+- [NGINX] (https://www.nginx.com)
 
