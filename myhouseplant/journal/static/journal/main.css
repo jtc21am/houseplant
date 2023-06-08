@@ -213,6 +213,7 @@ border: solid;
     background-size: 45px;
     animation: moveSlideshow 17s linear infinite;
 }
+
 .thumbnail-container {
     width: 150px;
     display: flex;
