@@ -7,6 +7,8 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist  # Import ObjectDoesNotExist exception from Django
+from django.core.cache import cache  # Import the cache framework from Django
 from django.urls import reverse
 from django.utils import timezone
 from django.http import HttpResponseRedirect
@@ -15,9 +17,8 @@ from .forms import EntryCreateForm, EntryWaterForm, PlantCreateForm
 from .models import Plant, Entry
 import random  # Import the random module for choosing a random plant
 import datetime  # Import the datetime module for getting the current week number
-from django.core.exceptions import ObjectDoesNotExist  # Import ObjectDoesNotExist exception from Django
-from django.core.cache import cache  # Import the cache framework from Django
-from django.shortcuts import render
+
+
 
 
 def plant_of_the_week(request):

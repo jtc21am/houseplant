@@ -1,27 +1,30 @@
+
 body, html {
     margin: 0;
     padding: 0;
+    overflow-x: scroll;
 }
 
 .plant-card {
     transition: box-shadow .3s;
 }
+
 .plant-card:hover {
     box-shadow: 0 0 20px rgba(38, 38, 38, 0.5);
 }
+
 /* You can adjust the image size by increasing/decreasing the width, height */
 .custom-circle-image {
-    width: 15vw; /* note i used vw not px for better responsive */
+    width: 15vw; /* note I used vw, not px, for better responsiveness */
     height: 15vw;
 }
-
 
 .Plants:hover > .leafy {
     animation-name: wave;
     animation-duration: 2.0s;
     display: inline-block;
 }
-  
+
 @keyframes wave {
     0% { transform: rotate( 0.0deg) }
     10% { transform: rotate(14.0deg) }  /* The following five values can be played with to make the waving more or less extreme */
@@ -55,14 +58,24 @@ body, html {
     width: 100%;
     object-fit: cover;
     border-radius: inherit;
-  }
+}
 
-#content-desktop {display: block;}
-#content-mobile {display: none;}
+#content-desktop {
+    display: block;
+}
+
+#content-mobile {
+    display: none;
+}
 
 @media screen and (max-width: 768px) {
-#content-desktop {display: none;}
-#content-mobile {display: block;}
+    #content-desktop {
+        display: none;
+    }
+
+    #content-mobile {
+        display: block;
+    }
 }
 
 .asteriskField {
@@ -76,9 +89,11 @@ body, html {
 select[name$="_day"].selectdatewidget {
     width: 27%;
 }
+
 select[name$="_month"].selectdatewidget {
     width: 38%;
 }
+
 select[name$="_year"].selectdatewidget {
     width: 35%;
 }
@@ -86,37 +101,33 @@ select[name$="_year"].selectdatewidget {
 font-face {
     font-family: "Gill Sans", sans-serif;
     font-weight: bold;
-  }
+}
 
 .greencontainer {
-    overflow:hidden;
-    position:relative;
+    overflow: hidden;
+    position: relative;
     padding: 0rem 0rem;
     padding-bottom: 1rem;
 }
 
 .greenpage {
-    position:relative;
+    position: relative;
     width: 1200px;
     margin: 0px auto;
     padding: 5px;
-
 }
 
 .greenband {
-    width:100%;
+    width: 100%;
     padding: 1rem 0rem;
-
 }
 
 .greencontent {
-    position:relative;
-
+    position: relative;
 }
 
-.greenbandcolor  { 
+.greenbandcolor {
     background-color: #B9D485;
-
 }
 
 .center {
@@ -125,25 +136,24 @@ font-face {
     top: 50%;
     transform: translate(0, -50%);
     padding: 20px;
-  }
-
+}
 
 .brd-box {
-    display:block;
+    display: block;
     border: 2px solid #000000;
-    background: #395c00
-  }
+    background: #395c00;
+}
 
 .btn {
-color: rgb(255, 255, 255);
-background-color: rgb(42, 110, 42);
-border: solid;
+    color: rgb(255, 255, 255);
+    background-color: rgb(42, 110, 42);
+    border: solid;
 }
 
 .btn-equal-size {
     width: 150px; /* Adjust the width value as desired */
     height: 40px; /* Adjust the height value as desired */
-  }
+}
 
 .dark-footer {
     background-color: #343a40;
@@ -190,7 +200,7 @@ border: solid;
     background: url(totop.png) no-repeat left top;
     background-size: 45px;
 }
-  
+
 #toTop:hover {
     opacity: 1;
 }
@@ -213,6 +223,7 @@ border: solid;
     background-size: 45px;
     animation: moveSlideshow 17s linear infinite;
 }
+
 .thumbnail-container {
     width: 150px;
     display: flex;
@@ -238,4 +249,19 @@ border: solid;
 
 .card-text {
     margin-bottom: 0;
+}
+
+/* Additional CSS for left and right scroll */
+body {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.greenpage {
+    overflow-x: auto;
+}
+
+.greenband {
+    min-width: fit-content;
 }
