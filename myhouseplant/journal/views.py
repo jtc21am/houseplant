@@ -13,36 +13,53 @@ from django.http import HttpResponseRedirect
 from django.db import transaction
 from .forms import EntryCreateForm, EntryWaterForm, PlantCreateForm
 from .models import Plant, Entry
-import random
-
-
+import random  # Import the random module for choosing a random plant
+import datetime  # Import the datetime module for getting the current week number
+from django.core.exceptions import ObjectDoesNotExist  # Import ObjectDoesNotExist exception from Django
+from django.core.cache import cache  # Import the cache framework from Django
 from django.shortcuts import render
-from django.core.exceptions import ObjectDoesNotExist
+
 
 def plant_of_the_week(request):
-    try:
-        # Retrieve all plants from the database
-        plants = Plant.objects.all()
-        if plants:
-            # Choose a random plant from the list
-            random_plant = random.choice(plants)
-        else:
-            random_plant = None
-    except ObjectDoesNotExist:
-        random_plant = None
+    # Check if the plant of the week is already cached
+    cached_plant = cache.get('plant_of_the_week')
 
-    # Prepare the context data to be passed to the template
+    # If a plant is cached and it's still the same week, return the cached plant
+    if cached_plant is not None and cached_plant['week'] == datetime.date.today().isocalendar()[1]:
+        random_plant = cached_plant['plant']
+    else:
+        try:
+            # Retrieve all plants from the database
+            plants = Plant.objects.all()
+            if plants:
+                # Choose a random plant from the list
+                random_plant = random.choice(plants)
+            else:
+                random_plant = None
+        except ObjectDoesNotExist:
+            random_plant = None
+
+        # Cache the selected plant and the current week
+        cache.set('plant_of_the_week', {'plant': random_plant, 'week': datetime.date.today().isocalendar()[1]}, 604800)  # Cache for 1 week (604800 seconds)
+
+    # Create a context dictionary with the 'random_plant' key-value pair
     context = {
-        'plants': plants,
         'random_plant': random_plant
     }
+
     # Render the 'plant_week.html' template with the provided context
     return render(request, 'journal/plant_week.html', context)
+
 
 def about(request):
     """ Show about page explaining app purpose. """
     # Render the 'about.html' template with the provided context
     return render(request, 'journal/about.html', {'title': 'About'})
+
+def tech(request):
+    """ Show about page explaining app purpose. """
+    # Render the 'about.html' template with the provided context
+    return render(request, 'journal/rasp.html', {'title': 'Plant Tech'})
 
 class PlantListView(ListView):
     """ List all of user's plants on home page if they are logged in. """

@@ -39,4 +39,9 @@ urlpatterns = [
 
     # Route for the plant of the week
     path('plantoftheweek/', plant_of_the_week, name='plant_week'),
+
+    # Route for the plant of the week
+    path('planttechnology/', views.tech, name='plant_technology'),
+
+
 ]
