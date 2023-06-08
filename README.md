@@ -83,7 +83,7 @@ Run the following commands:
 
 ### _Running the Application_
 
-Navigate to the `mirror-mirror` directory.
+Navigate to the `myhouseplant` directory.
 
 Run the following command:
 
