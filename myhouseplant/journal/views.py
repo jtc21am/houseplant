@@ -76,9 +76,9 @@ class PlantListView(ListView):
             return self.model.objects.filter(owner=self.request.user).order_by('location', 'name')
         else:
             # If not authenticated, retrieve the user with username 'asha' as a fallback
-            asha = User.objects.filter(username='asha').first()
+            Asha = User.objects.filter(username='Asha').first()
             # Return all plants owned by 'asha' and order them by location and name
-            return super().get_queryset().filter(owner=asha)
+            return super().get_queryset().filter(owner=Asha)
 
 
 class PlantDetailView(DetailView):
