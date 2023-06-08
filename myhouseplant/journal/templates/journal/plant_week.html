@@ -43,18 +43,19 @@ body {
     <h2>Plant of the Week</h2>
     {% if random_plant %}
       <div class="thumbnail-container">
-        <a target="_blank" href="img_forest.jpg">
+        <a target="_blank" href="{% url 'plant-detail' random_plant.id %}">
           <div class="col-card mb-5">
             <div class="card-img-container">
               <img src="{{ random_plant.image.url }}" class="thumbnail-img" alt="{{ random_plant.name }}">
             </div>
-            <h5 class="card-title">{{ random_plant.name }}</h5>
-            <p class="card-text">{{ random_plant.description }}</p>
+            <h5 class="card-title">Plant Name: {{ random_plant.name }}</h5>
+            <p class="card-text">Scientific Name: {{ random_plant.scientific }}</p>
+            <p class="card-text">Plant Owner: {{ random_plant.owner.username }} </p>
           </div>
         </a>
       </div>
     {% else %}
-      <p>No plants available for this week.</p>
+      <p>No plants available for this week</p>
     {% endif %}
   </div>  
     </a>
