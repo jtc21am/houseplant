@@ -13,7 +13,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.http import HttpResponseRedirect
 from django.db import transaction
-from .forms import EntryCreateForm, EntryWaterForm, PlantCreateForm
+from .forms import EntryCreateForm, EntryWaterForm, PlantCreateForm, SoilMoistureReadingForm
 from .models import Plant, Entry
 import random  # Import the random module for choosing a random plant
 import datetime  # Import the datetime module for getting the current week number
@@ -81,28 +81,25 @@ class PlantListView(ListView):
             return super().get_queryset().filter(owner=Asha)
 
 
-class PlantDetailView(DetailView):
+
+class PlantDetailView(FormMixin, DetailView):
     """ Show details of plant and handle 'Water Me!' button submission. """
     model = Plant
-    template_name = 'journal/plant_detail.html'
+    form_class = EntryWaterForm
 
     def get_success_url(self):
-        # Specify the URL to redirect to after a successful form submission
         return reverse('plant-detail', kwargs={'pk': self.object.id})
 
+    # If Water Me! button is pressed, update plant last_watered and return to home page with success
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
-        form = EntryWaterForm(request.POST)
-
-        if 'water_single' in request.POST:
-            if form.is_valid():
-                # Update the last_watered field of the plant with the current time
-                self.object.last_watered = timezone.now()
-                self.object.save()
-                # Display a success message to the user
-                messages.success(request, f'Your {self.object.name} has been watered!')
-        return self.get(request, *args, **kwargs)
-
+        form = self.get_form()
+        messages.success(request, f'Your {self.object.name} has been watered!')
+        self.object.last_watered = timezone.now()
+        self.object.save()
+        # note = "Watered after " + str((timezone.now() - self.object.last_watered).days) + " days"
+        # Entry.objects.create(plant=self.object, note=note, date_created=timezone.now(), watered='Y', fertilized='N', repotted='N', treated='N')
+        return redirect('journal-home')
     
 class WaterAllPlantsView(View):
     def post(self, request, *args, **kwargs):
@@ -237,3 +234,19 @@ def error_500(request, exception):
     data = {}
     # Render the '500.html' template with the provided context
     return render(request,'journal/500.html', data)
+
+def record_soil_moisture(request):
+    if request.method == 'POST':
+        form = SoilMoistureReadingForm(request.POST)
+        if form.is_valid():
+            # Process the form data
+            plant = form.cleaned_data['plant']
+            moisture_level = form.cleaned_data['moisture_level']
+            
+            # Save the data or perform any other actions
+            
+            return redirect('soil-moisture-readings')  # Redirect to the soil moisture readings list
+    else:
+        form = SoilMoistureReadingForm()
+    
+    return render(request, 'app/record_soil_moisture.html', {'form': form})

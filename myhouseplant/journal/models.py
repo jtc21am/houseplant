@@ -20,6 +20,7 @@ class Plant(models.Model):
         ('SEEDLING', 'Seedling'),
         ('CUTTING', 'Cutting'),
         ('FULLSIZE', 'Full Size'),
+        ('BULB', 'Bulb'),
     ]
 
     # Choices for the 'location' field
@@ -28,8 +29,8 @@ class Plant(models.Model):
         ('LIVING RM', 'Living Room'),
         ('MUDROOM', 'Mud Room'),
         ('FR STEPS', 'Front Steps'),
-        ('BACK DECK', 'Back Deck'),
-        ('BACK GARDEN', 'Back Garden'),
+        ('BK DECK', 'Back Deck'),
+        ('BK GARDEN', 'Back Garden'),
         ('FR GARDEN', 'Front Garden'),
     ]
 

@@ -17,8 +17,9 @@ class EntryCreateForm(forms.ModelForm):
 class EntryWaterForm(forms.ModelForm):
     class Meta:
         model = Entry
-        fields = ['watered']
+        fields = ['plant', 'watered']
         widgets = {
+            'plant': forms.HiddenInput,
             'watered': forms.HiddenInput,
         }
 
@@ -49,3 +50,7 @@ class PlantCreateForm(forms.ModelForm):
             'bought': forms.SelectDateWidget,
             'image': FileInput,
         }
+
+class SoilMoistureReadingForm(forms.Form):
+    plant = forms.CharField(max_length=100)
+    moisture_level = forms.FloatField()
