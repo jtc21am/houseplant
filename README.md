@@ -124,10 +124,11 @@ Run the following command:
 - Visual Studio Code
 - GitHub for version control, Issues and Projects
 - Miro for Wireframe
-- Figma for Er Diagram
-- Raspberry Pi, Soil Moisture Sensor, Light Sensor
-- Grafana
-- Adafruit library
+- Figma for ER Diagram
+- Raspberry Pi Pico W 
+- SparkFun Qwiic Soil Moisture Sensor
+- Light Sensor using an LDR (Photoresistors)
+- Sanity Content Cloud
 
 
 **Additionally:**
@@ -143,6 +144,6 @@ Run the following command:
 - [Django Static CSS](https://learndjango.com/tutorials/django-static-files)
 - [Django HTML](https://docs.djangoproject.com/en/4.0/topics/templates/)
 - [Python Signal](https://docs.python.org/3/library/signal.html)
-- [Gunicorn] (https://www.google.com/search?client=safari&rls=en&q=gunicorn&ie=UTF-8&oe=UTF-8)
+- [Gunicorn](https://www.google.com/search?client=safari&rls=en&q=gunicorn&ie=UTF-8&oe=UTF-8)
 - [NGINX] (https://www.nginx.com)
-
+- [PyCharm with MicroPython](https://www.jetbrains.com/pycharm/)
