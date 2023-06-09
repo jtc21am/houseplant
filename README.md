@@ -145,5 +145,5 @@ Run the following command:
 - [Django HTML](https://docs.djangoproject.com/en/4.0/topics/templates/)
 - [Python Signal](https://docs.python.org/3/library/signal.html)
 - [Gunicorn](https://www.google.com/search?client=safari&rls=en&q=gunicorn&ie=UTF-8&oe=UTF-8)
-- [NGINX] (https://www.nginx.com)
+- [NGINX](https://www.nginx.com)
 - [PyCharm with MicroPython](https://www.jetbrains.com/pycharm/)
