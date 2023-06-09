@@ -8,19 +8,7 @@ The app is a reminder of when to water my plants, as well as keep a log on each 
 
 
 ## About this application
-I took the opportunity to my hands dirty (all puns intended) in the world of physical electronics and micro-controllers as well as take plant nurturing to the next level. This is a topic that is entirely new to me.
-
-It is my goal to utilize the data to build an automatic watering system as well as implement ML so the plant health is optimized.  For light, the abstract metric of “sun exposure” that every package of seeds and every plant purchased is readily availavble to the consumer.
-
-The thing about this metric is that it is surprisingly subjective and unscientific, at least for consumer-facing products. Generally speaking, we’d want to look at W/sqm of solar irradiance, but we’ll get to why that is not straightforward in a second.
-
-Architecture
-
-I am seeking data - data on sun exposure, soil moisture, and eventually temperature although these metrics are hyper-localized and can be entirely different only a foot away.
-
-So I’ll be collecting metrics like soil moisture, sun exposure UV, plus metadata like device ID and timestamp, send it to a server on the network using a REST API, store it in a database, and analyze it using Grafana.
-
-Set up my Django project with Postgres, Nginx and Gunicorn:  I utilized Class based views, signaling, caching and built unit tests.
+To explore the world of physical electronics and microcontrollers while enhancing plant nurturing, I embarked on a new and exciting journey. My objective is to create an automatic watering system using collected data and implement machine learning for optimized plant health. When it comes to light, the widely available metric of "sun exposure" found on seed packages and plant purchases is subjective and unscientific for consumer products. I am interested in obtaining data on sun exposure, soil moisture, and temperature, acknowledging their hyper-localized nature. By collecting metrics like soil moisture and sun exposure UV, along with device ID and timestamp, I will send the data to a server using a REST API, store it in a database, and analyze it. To accomplish this, I set up my Django project with Postgres, Nginx, and Gunicorn, utilizing class-based views, signaling, caching, and building unit tests.
 
 # Usage
 
