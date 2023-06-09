@@ -45,7 +45,7 @@ body {
       {% for plant in plants %}
         <div class="col-md-3">
           <a class="no-style" href="{% url 'plant-detail' plant.id %}">
-            <div class="card plant-card mb-5 {% if plant.is_past_due %}red-card{% endif %}" style="height:90%">
+            <div class="card plant-card mb-5 {% if plant.is_past_due %}red-card{% endif %}{% if plant.is_past_due %}yellow-card{% endif %}" style="height:90%">
               <img class="card-img-top" src="{% cropped_thumbnail plant 'cropping' scale=1.0 %}"  alt="{{ plant.name }}">
               <div class="card-body">
                 <h5 class="card-title text-center">{{ plant.name }}</h5>

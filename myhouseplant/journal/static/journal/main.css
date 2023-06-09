@@ -170,7 +170,10 @@ border: solid;
 }
 
 .red-card {
-    background-color: red;
+    background-color: rgb(252, 166, 166);
+}
+.yellow-card {
+    background-color: rgb(229, 232, 160);
 }
 
 /** Totop **/
