@@ -1,6 +1,6 @@
 from django.db.models.signals import post_save
 from .models import Entry, Plant # entry is the sender
-from django.dispatch import receiver # need to create a receiver
+from django.dispatch import receiver
 from django.utils import timezone
 
 @receiver(post_save, sender=Entry)

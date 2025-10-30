@@ -17,8 +17,8 @@ from .forms import EntryCreateForm, EntryWaterForm, PlantCreateForm, SoilMoistur
 from .models import Plant, Entry
 import random  # Import the random module for choosing a random plant
 import datetime  # Import the datetime module for getting the current week number
-
-
+import GPIO
+import time
 
 
 def plant_of_the_week(request):
@@ -250,3 +250,30 @@ def record_soil_moisture(request):
         form = SoilMoistureReadingForm()
     
     return render(request, 'app/record_soil_moisture.html', {'form': form})
+
+def rc_time(pin_to_circuit):
+    count = 0
+  
+    #Output on the pin for 
+    GPIO.setup(pin_to_circuit, GPIO.OUT)
+    GPIO.output(pin_to_circuit, GPIO.LOW)
+    time.sleep(0.1)
+
+    #Change the pin back to input
+    GPIO.setup(pin_to_circuit, GPIO.IN)
+  
+    #Count until the pin goes high
+    while (GPIO.input(pin_to_circuit) == GPIO.LOW):
+        count += 1
+
+    return count
+
+#Catch when script is interrupted, cleanup correctly
+try:
+    # Main loop
+    while True:
+        print(rc_time(pin_to_circuit))
+except KeyboardInterrupt:
+    pass
+finally:
+    GPIO.cleanup()
